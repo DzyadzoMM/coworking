@@ -12,6 +12,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { TelegrafModule } from 'nestjs-telegraf';
 import { join } from 'path';
+import { LocationModule } from './location/location.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { join } from 'path';
     BookingsModule, 
     WorkspacesModule, 
     AuthModule,
+    LocationModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST,
