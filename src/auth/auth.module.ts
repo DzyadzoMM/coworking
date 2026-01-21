@@ -1,38 +1,34 @@
-import { Module } from '@nestjs/common';
-import { JwtModule } from '@nestjs/jwt';
-import { PassportModule } from '@nestjs/passport';
+import { Module, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthService } from './auth.service';
-import { AuthController } from './auth.controller';
+import { NotificationService } from '../notification/notification.service';
+import { BookingsModule } from '../bookings/bookings.module';
 import { UsersModule } from '../users/users.module';
+import { User } from '../users/user.entity';
+import { BotUpdate } from './bot.update';
+import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './jwt.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { NotificationService } from '../notification/notification.service';
-import { User } from '../users/user.entity';
-import { BotUpdate } from './bot.update'; 
 
 @Module({
   imports: [
     UsersModule,
     PassportModule,
     ConfigModule,
+    forwardRef(() => BookingsModule), 
     TypeOrmModule.forFeature([User]), 
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => ({
-        secret: configService.get('JWT_SECRET') || 'secret', 
-        signOptions: { expiresIn: '1h' },
+      useFactory: async (config) => ({
+        secret: config.get('JWT_SECRET') || 'secret',
+        signOptions: { expiresIn: '24h' },
       }),
     }),
   ],
-  providers: [
-    AuthService, 
-    JwtStrategy, 
-    NotificationService, 
-    BotUpdate 
-  ],
-  controllers: [AuthController],
-  exports: [AuthService],
+  providers: [AuthService, JwtStrategy, NotificationService, BotUpdate],
+  controllers: [ ],
+  exports: [AuthService, NotificationService], 
 })
 export class AuthModule {}

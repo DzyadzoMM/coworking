@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Workspace } from '../workspaces/workspace.entity';
 
 @Entity()
 export class Location {
@@ -21,4 +22,8 @@ name: string
 //Фото
 @Column({ nullable: true })
 image: string; 
+
+// Одна локація має багато робочих місць
+  @OneToMany(() => Workspace, (workspace) => workspace.location)
+  workspaces: Workspace[];
 }
