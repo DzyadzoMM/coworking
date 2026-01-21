@@ -8,11 +8,35 @@ import { BookingsModule } from './bookings/bookings.module';
 import { WorkspacesModule } from './workspaces/workspaces.module';
 import { AuthModule } from './auth/auth.module';
 import {LoggerMiddleware} from './middleware/logger.middlware';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { TelegrafModule } from 'nestjs-telegraf';
+import { join } from 'path';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+    }),
+    TelegrafModule.forRoot({token:String(process.env.TELEGRAM_TOKEN) }),
+    MailerModule.forRoot({
+      transport: {
+        host: 'smtp.gmail.com',
+        port: 587,
+        secure: false,
+        auth: {
+          user: process.env.GMAIL,
+          pass: process.env.GMAIL_CODE,
+          },
+        },
+        defaults: {
+          from: '"Coworking" <vash_email@gmail.com>'},
+        template: {
+          dir: join(__dirname,'templates'),
+          adapter: new HandlebarsAdapter(),
+          options: {
+            strict: true,},
+        },
     }),
     UsersModule, 
     BookingsModule, 
