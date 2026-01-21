@@ -1,3 +1,32 @@
+# 🏢 Coworking Space Management System & Telegram Bot
+
+![NestJS](https://img.shields.io/badge/framework-NestJS-red?style=for-the-badge&logo=nestjs)
+![PostgreSQL](https://img.shields.io/badge/database-PostgreSQL-blue?style=for-the-badge&logo=postgresql)
+![Telegraf](https://img.shields.io/badge/bot-Telegraf-blue?style=for-the-badge&logo=telegram)
+![TypeScript](https://img.shields.io/badge/language-TypeScript-blue?style=for-the-badge&logo=typescript)
+
+A professional ecosystem for coworking space automation. It features a robust NestJS API and an interactive Telegram bot for real-time user engagement. Developed and optimized for mobile development environments like **Termux**.
+
+---
+
+## 🌟 Key Features
+
+* **⚡️ Smart Booking**: Double-booking protection algorithm prevents overlapping reservations for the same workspace.
+* **🤖 Interactive Bot**: Full user lifecycle management via Telegram, including account linking and history retrieval.
+* **🔔 Instant Notifications**: Detailed automated confirmations sent to Telegram immediately after booking via API.
+* **🔐 Enterprise Security**: Secure access using JWT tokens and Passport.js strategies.
+
+---
+
+## 📊 Database Schema
+
+| Entity | Description | Key Fields |
+| :--- | :--- | :--- |
+| **User** | System Users | `email`, `password`, `telegramId` |
+| **Location** | Office Clusters | `name`, `address` |
+| **Workspace** | Desks/Meeting Rooms | `name`, `type`, `locationId` |
+| **Booking** | Reservations | `startTime`, `endTime`, `status`, `userId`, `workspaceId` |
+
 Чудовий вибір! Цей проект покаже роботодавцю, що ти вмієш працювати з бізнес-логікою (уникнення подвійних бронювань) та складними структурами даних.
 Ось детальний план розробки:
 1. Архітектура бази даних (PostgreSQL/MongoDB)
