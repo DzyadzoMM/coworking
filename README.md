@@ -74,7 +74,7 @@ npm run test
 
 # Format code using Prettier
 npm run format
-
+```
 
 ---
 
