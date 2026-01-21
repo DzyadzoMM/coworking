@@ -18,6 +18,30 @@ A professional ecosystem for coworking space automation. It features a robust Ne
 
 ---
 
+## 🛠 Tech Stack (Dependencies)
+
+Based on the project configuration, the following technologies are utilized:
+
+* **Core**: `NestJS 11`, `TypeScript 5.7`
+* **Database**: `PostgreSQL`, `TypeORM 0.3`
+* **Bot Engine**: `Telegraf`, `nestjs-telegraf`
+* **Security**: `Passport.js`, `JWT`, `bcryptjs`
+* **Communication**: `Nodemailer`, `@nestjs-modules/mailer`
+* **Validation**: `class-validator`, `class-transformer`
+
+---
+
+## 📡 API Endpoints
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| **POST** | `/api/auth/register` | Register a new user account |
+| **POST** | `/api/auth/login` | User login (returns JWT token) |
+| **GET** | `/api/workspaces` | Get a list of available workspaces with filters |
+| **POST** | `/api/bookings` | Create a booking (includes availability check) |
+| **GET** | `/api/bookings/my` | List bookings for the currently authenticated user |
+---
+
 ## 📊 Database Schema
 
 | Entity | Description | Key Fields |
@@ -26,6 +50,45 @@ A professional ecosystem for coworking space automation. It features a robust Ne
 | **Location** | Office Clusters | `name`, `address` |
 | **Workspace** | Desks/Meeting Rooms | `name`, `type`, `locationId` |
 | **Booking** | Reservations | `startTime`, `endTime`, `status`, `userId`, `workspaceId` |
+
+---
+## 🚀 Management Commands (Scripts)
+
+Use `npm` to manage the project lifecycle:
+
+```bash
+# Install all dependencies
+npm install
+
+# Start in development mode (with watch)
+npm run start:dev
+
+# Build the project for production
+npm run build
+
+# Run the production build
+npm run start:prod
+
+# Run unit tests
+npm run test
+
+# Format code using Prettier
+npm run format
+
+
+---
+
+## 📱 User Guide: Telegram Bot
+
+### 1. Account Linking
+* **Start the Conversation**: Open the bot and send the `/start` command.
+* **Link Profile**: Provide your registered email address; the bot will then link your `telegramId` to your database profile.
+* **Get Notified**: Once linked, you will receive real-time notifications for all your bookings.
+
+### 2. Bot Commands
+* `/my_bookings` — View a detailed list of your active and past reservations.
+* `/help` — View information about available bot features.
+
 
 Чудовий вибір! Цей проект покаже роботодавцю, що ти вмієш працювати з бізнес-логікою (уникнення подвійних бронювань) та складними структурами даних.
 Ось детальний план розробки:
