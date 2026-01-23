@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository} from 'typeorm';
 import { Location } from './location.entity';
@@ -13,5 +13,11 @@ export class LocationService {
   }
   async findAll() {
     return await this.repo.find();
+  }
+  async findById(id: number) {
+    const location = await this.repo.findOneBy({id});
+    if(!location)
+      throw new NotFoundException('Локації не існує')
+    return  location;
   }
 }
